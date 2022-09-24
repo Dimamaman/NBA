@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">NBA</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="team_name">Team Name: %s</string>
+    <string name="team_division">Team Division: %s</string>
+    <string name="team_location">City: %s</string>
+</resources>
