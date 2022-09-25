@@ -20,7 +20,7 @@ import com.example.nba.databinding.PlayersLayoutBinding
 import com.google.android.material.snackbar.Snackbar
 
 class PlayersFragment : Fragment(R.layout.fragment_players) {
-    private val binding by lazy { FragmentPlayersBinding.inflate(layoutInflater) }
+    private lateinit var binding: FragmentPlayersBinding
     private val playersAdapter by lazy { AdapterPlayers() }
     private lateinit var viewModel: PlayersViewModel
 
@@ -35,6 +35,7 @@ class PlayersFragment : Fragment(R.layout.fragment_players) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = FragmentPlayersBinding.bind(view)
 //        val viewmodel = ViewModelProvider(requireActivity())[PlayersViewModel::class.java]
         binding.apply {
             playersRecyclerview.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
@@ -43,10 +44,10 @@ class PlayersFragment : Fragment(R.layout.fragment_players) {
 
         viewModel.getResult()
 
-        viewModel.result.observe(viewLifecycleOwner, Observer {
-            when(it) {
+        viewModel.result.observe(viewLifecycleOwner) {
+            when (it) {
                 is NetworkResult.Success -> {
-                    Log.d("TTT","${it.data?.players}")
+                    Log.d("TTT", "${it.data?.players}")
                     it.data?.players?.let {
                         playersAdapter.model = it
                     }
@@ -58,7 +59,7 @@ class PlayersFragment : Fragment(R.layout.fragment_players) {
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                 }
             }
-        })
+        }
 
     }
 }

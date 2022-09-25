@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.data.Player
 import com.example.nba.R
@@ -23,14 +24,12 @@ class AdapterPlayers: RecyclerView.Adapter<AdapterPlayers.VH>() {
                 lastName.text = player.last_name
                 pasition.text = player.position
 
-                teamName.text = itemView.context.getString(R.string.team_name,"%s".format(player.team.full_name))
-                teamDevision.text = itemView.context.getString(R.string.team_division,"%s".format(player.team.division))
-                teamLocation.text = itemView.context.getString(R.string.team_location,"%s".format(player.team.city))
+                teamName.text = itemView.context.getString(R.string.team_name,player.team.full_name)
+                teamDevision.text = itemView.context.getString(R.string.team_division,player.team.division)
+                teamLocation.text = itemView.context.getString(R.string.team_location,player.team.city)
 
-                if (itemView.isClickable) {
-                    aboutPlayersTeam.visibility = View.VISIBLE
-                }else {
-                    aboutPlayersTeam.visibility = View.GONE
+                itemView.setOnClickListener {
+                    aboutPlayersTeam.isVisible = !aboutPlayersTeam.isVisible
                 }
             }
         }
